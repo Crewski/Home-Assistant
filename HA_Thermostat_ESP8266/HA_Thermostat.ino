@@ -29,6 +29,7 @@ const char *CONNECT_FILE = "/connect_config.json";
 const char *OPERATION_FILE = "/operation_config.json";
 
 #define DHTTYPE DHT22
+DHT *dht;  // define DHT object
 
 #define STATUS_UPDATE_INTERVAL 60000
 
@@ -927,6 +928,11 @@ void setup()
     Serial.println("OPERATION Config loaded");
   }
 
+  static DHT static_dht(DHT_DATA_PIN, DHTTYPE);
+  // save its address.
+  dht = &static_dht;
+  // call begin() and your ready to use the sensor if correctly wired.
+  dht->begin();
 
   digitalWrite(RELAY_COOL, LOW_TRIGGER ? HIGH : LOW);
   digitalWrite(RELAY_FAN, LOW_TRIGGER ? HIGH : LOW);
@@ -1127,15 +1133,16 @@ void setup()
     Serial.println("Config saved");
   }
 
-    digitalWrite(RELAY_HEAT, LOW_TRIGGER ? HIGH : LOW);
-    digitalWrite(RELAY_COOL, LOW_TRIGGER ? HIGH : LOW);
-    digitalWrite(RELAY_FAN, LOW_TRIGGER ? HIGH : LOW);
-    digitalWrite(RELAY_HUMIDIFIER, LOW_TRIGGER ? HIGH : LOW);
-    pinMode(RELAY_COOL, OUTPUT);
-    pinMode(RELAY_FAN, OUTPUT);
-    pinMode(RELAY_HEAT, OUTPUT);
-    pinMode(RELAY_HUMIDIFIER, OUTPUT);
+    // digitalWrite(RELAY_HEAT, LOW_TRIGGER ? HIGH : LOW);
+    // digitalWrite(RELAY_COOL, LOW_TRIGGER ? HIGH : LOW);
+    // digitalWrite(RELAY_FAN, LOW_TRIGGER ? HIGH : LOW);
+    // digitalWrite(RELAY_HUMIDIFIER, LOW_TRIGGER ? HIGH : LOW);
+    // pinMode(RELAY_COOL, OUTPUT);
+    // pinMode(RELAY_FAN, OUTPUT);
+    // pinMode(RELAY_HEAT, OUTPUT);
+    // pinMode(RELAY_HUMIDIFIER, OUTPUT);
     request->redirect("/relay");
+    ESP.restart();
   });
 
   server.on("/reset", HTTP_POST, [](AsyncWebServerRequest *request) {
@@ -1187,11 +1194,15 @@ void loop()
   }
   if (now - LAST_SENSOR_READ > (SENSOR_UPDATE * 1000))
   {
-    DHT dht(DHT_DATA_PIN, DHTTYPE); // SET UP THE DHT22
-    dht.begin();
-    delay(100);
-    float h = dht.readHumidity();        // READ THE HUMIDITY
-    float t = dht.readTemperature(true); // READ THE TEMPERATURE IN FAHRENHEIT
+    // DHT dht(DHT_DATA_PIN, DHTTYPE); // SET UP THE DHT22
+    // dht.begin();
+    // delay(100);
+    // float h = dht.readHumidity();        // READ THE HUMIDITY
+    // float t = dht.readTemperature(true); // READ THE TEMPERATURE IN FAHRENHEIT
+    
+    float h = dht->readHumidity();        // READ THE HUMIDITY
+    float t = dht>readTemperature(true); // READ THE TEMPERATURE IN FAHRENHEIT
+
     if (!isnan(h) || !isnan(t))
     {
       StaticJsonBuffer<200> jsonBuffer;
