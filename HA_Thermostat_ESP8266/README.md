@@ -15,6 +15,12 @@ I have been using Home Assistant lately and love it.  My main dislike was that I
 * 5v power supply
 * Jumper wires
 
+### Wiring
+
+I hooked up the DHT22 to 3.3v and the relay module to 5v.  I may switch the DHT22 to 5v as well depending on how well it functions.
+
+<p align="center"><img src="images/Wiring_diagram.png" width="300" /></p>
+
 ### Connectivity
 
 Upon the first boot (or whenever it can't connect), the device will broadcast its own access point.  It'll be named HVAC-12345678 (different numbers).  Connect to it and then go to 192.168.4.1 on your browser.  From there, you can click on the "Connectivity" button to input your wifi/mqtt credentials.  After saving, the device will reboot and try to connect.  You should be able to connect via it's IP address on you wifi.
