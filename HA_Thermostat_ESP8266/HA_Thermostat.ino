@@ -1201,7 +1201,7 @@ void loop()
     // float t = dht.readTemperature(true); // READ THE TEMPERATURE IN FAHRENHEIT
     
     float h = dht->readHumidity();        // READ THE HUMIDITY
-    float t = dht>readTemperature(true); // READ THE TEMPERATURE IN FAHRENHEIT
+    float t = dht->readTemperature(true); // READ THE TEMPERATURE IN FAHRENHEIT
 
     if (!isnan(h) || !isnan(t))
     {
