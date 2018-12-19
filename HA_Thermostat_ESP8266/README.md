@@ -6,6 +6,14 @@ This is a stand alone house thermostat for controlling the furnace, a/c, fan, an
 
 I have been using Home Assistant lately and love it.  My main dislike was that I had to use 2 generic thermostats to control my heating and cooling.  The other issue is that I run my Home Assistant on a raspberry pi...which is prone to sd card failure.  So what happens if my Home Assistant goes down....I don't have any control over the temperature anymore.  That is why I created this thermostat.  It'll continue to work and I'll have access to it even if Home Assistant or my router dies.  But Crewski, why not just get a Nest or some other connected thermostat?  Simple, temperatures throughout the house.  I wanted to be able to tell my thermostat what the temperature was.  I use this for at night when all I care about is the bedroom temperatures that are upstairs....not whatever it is in the living room.
 
+### Arduino Libraries
+
+* ESPAsyncWebServer (https://github.com/me-no-dev/ESPAsyncWebServer)
+  * I found this library to be awesome.  It provides a super fast webserver....way better than the ESP8266WebServer I initially tried
+* ESPAsyncTCP (https://github.com/me-no-dev/ESPAsyncTCP) required by the ESPAsyncWebServer
+* DHT22 (https://github.com/adafruit/DHT-sensor-library) available from the Arduino library manager
+* Adafruit Unified Sensor (https://github.com/adafruit/Adafruit_Sensor) required by DHT22 library, also available from Arduino library manager
+
 
 ### Items needed
 
